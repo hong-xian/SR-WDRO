@@ -1,5 +1,5 @@
 # SR-WDRO
-This is the official repository for "Mitigating Robust Overfitting in Wasserstein Distributionally Robust Optimization"). This repository contains an implementation of Statistic Robust WDRO.
+This is the official repository for "Mitigating Robust Overfitting in Wasserstein Distributionally Robust Optimization". This repository contains an implementation of Statistic Robust WDRO.
 ## Requirements:  
 * Python 3.11.3
 * PyTorch 2.0.1
