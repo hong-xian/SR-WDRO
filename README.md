@@ -9,5 +9,7 @@ This is the official repository for "Mitigating Robust Overfitting in Wasserstei
 ## Running experiments:  
 We give an example of SR-WDRO training on CIFAR-10 dataset:
 
-`python wdro_at.py --r_choice 0.1 --schedule`
+```
+python wdro_at.py --r_choice 0.1 --schedule
+```
 
