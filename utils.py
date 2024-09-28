@@ -15,44 +15,6 @@ warnings.filterwarnings("ignore")
 os.environ['MOSEKLM_LICENSE_FILE'] = "mosek.lic"
 
 
-def infer_exp_name_clean(r_choice, train_loss, eps, lr, epochs, arch, seed=0, schedule=None):
-    if schedule:
-        exp_name = 'r{}-{}-lr{}-e{}-a{}-seed{}-lr_decay'.format(
-            r_choice,
-            train_loss if train_loss == 'ST' else '{}{:.1f}'.format(train_loss, eps * 255),
-            lr,
-            epochs,
-            arch,
-            seed)
-    else:
-        exp_name = 'r{}-{}-lr{}-e{}-a{}-seed{}'.format(
-            r_choice,
-            train_loss if train_loss == 'ST' else '{}{:.1f}'.format(train_loss, eps * 255),
-            lr,
-            epochs,
-            arch,
-            seed)
-    return exp_name
-
-
-def infer_exp_name_hr(r_choice, train_loss, eps, epochs, arch, seed=0, schedule=None):
-    if schedule:
-        exp_name = 'r{}-{}-e{}-a{}-seed{}-lr_decay'.format(
-            r_choice,
-            train_loss if train_loss == 'ST' else '{}{:.1f}'.format(train_loss, eps * 255),
-            epochs,
-            arch,
-            seed)
-    else:
-        exp_name = 'r{}-{}-e{}-a{}-seed{}'.format(
-            r_choice,
-            train_loss if train_loss == 'ST' else '{}{:.1f}'.format(train_loss, eps * 255),
-            epochs,
-            arch,
-            seed)
-    return exp_name
-
-
 def infer_exp_name_wdro(r_choice, lr, eps, epochs, arch, seed=0, schedule=None):
     if schedule:
         exp_name = 'r{}-{}-lr{}-e{}-a{}-seed{}-lr_decay'.format(
@@ -280,3 +242,39 @@ class DPPOptimizer:
 
         return opt['a'].value
 
+def infer_exp_name_clean(r_choice, train_loss, eps, lr, epochs, arch, seed=0, schedule=None):
+    if schedule:
+        exp_name = 'r{}-{}-lr{}-e{}-a{}-seed{}-lr_decay'.format(
+            r_choice,
+            train_loss if train_loss == 'ST' else '{}{:.1f}'.format(train_loss, eps * 255),
+            lr,
+            epochs,
+            arch,
+            seed)
+    else:
+        exp_name = 'r{}-{}-lr{}-e{}-a{}-seed{}'.format(
+            r_choice,
+            train_loss if train_loss == 'ST' else '{}{:.1f}'.format(train_loss, eps * 255),
+            lr,
+            epochs,
+            arch,
+            seed)
+    return exp_name
+
+
+def infer_exp_name_hr(r_choice, train_loss, eps, epochs, arch, seed=0, schedule=None):
+    if schedule:
+        exp_name = 'r{}-{}-e{}-a{}-seed{}-lr_decay'.format(
+            r_choice,
+            train_loss if train_loss == 'ST' else '{}{:.1f}'.format(train_loss, eps * 255),
+            epochs,
+            arch,
+            seed)
+    else:
+        exp_name = 'r{}-{}-e{}-a{}-seed{}'.format(
+            r_choice,
+            train_loss if train_loss == 'ST' else '{}{:.1f}'.format(train_loss, eps * 255),
+            epochs,
+            arch,
+            seed)
+    return exp_name
