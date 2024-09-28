@@ -33,16 +33,6 @@ def make_data_clean(args):
         transform_train = transforms.ToTensor()
         train_set = datasets.SVHN(args.data_path, split="train", download=True, transform=transform_train)
         test_set = datasets.SVHN(args.data_path, split='test', download=True, transform=transform_test)
-    # elif args.dataset == "Tiny-Imagenet":
-    #     transform_train = transforms.Compose([
-    #         # transforms.RandomCrop(64, 8),
-    #         transforms.RandomHorizontalFlip(),
-    #         transforms.ToTensor(),
-    #     ])
-    #     train_set = TinyImageNet(root='./datasets/Tiny-Imagenet/tiny-imagenet-200', train=True,
-    #                              transform=transform_train)
-    #     test_set = TinyImageNet(root='./datasets/Tiny-Imagenet/tiny-imagenet-200', train=False,
-    #                             transform=transform_test)
     train_loader = DataLoader(train_set, batch_size=args.batch_size, shuffle=True, pin_memory=True, num_workers=2)
     test_loader = DataLoader(test_set, batch_size=args.batch_size, shuffle=False, pin_memory=True, num_workers=2)
     return train_loader, test_loader
@@ -60,16 +50,16 @@ def main(args):
             train_model(args, model, optimizer, train_loader, test_loader, writer, schedule=schedule)
         else:
             train_model(args, model, optimizer, train_loader, test_loader, writer)
-    # else:
-    #     model, resume_epoch = make_and_restore_model(args.arch, args.dataset,
-    #     resume_path=args.model_path_last)
-    #     optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0.9, weight_decay=args.weight_decay)
-    #     writer = SummaryWriter(args.tensorboard_path)
-    #     if args.schedule:
-    #         schedule = optim.lr_scheduler.MultiStepLR(optimizer, milestones=args.lr_milestones, gamma=args.lr_step)
-    #         train_model(args, model, optimizer, train_loader, test_loader, writer, resume_epoch, schedule=schedule)
-    #     else:
-    #         train_model(args, model, optimizer, train_loader, test_loader, writer, resume_epoch)
+    else:
+        model, resume_epoch = make_and_restore_model(args.arch, args.dataset,
+        resume_path=args.model_path_last)
+        optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0.9, weight_decay=args.weight_decay)
+        writer = SummaryWriter(args.tensorboard_path)
+        if args.schedule:
+            schedule = optim.lr_scheduler.MultiStepLR(optimizer, milestones=args.lr_milestones, gamma=args.lr_step)
+            train_model(args, model, optimizer, train_loader, test_loader, writer, resume_epoch, schedule=schedule)
+        else:
+            train_model(args, model, optimizer, train_loader, test_loader, writer, resume_epoch)
     print("test loader******************")
     eval_model(args, model, test_loader)
     # print("train loader******************")
