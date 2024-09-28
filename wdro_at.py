@@ -13,7 +13,6 @@ from pprint import pprint
 from utils import set_seed, make_and_restore_model
 from utils import infer_exp_name_wdro
 from wdro_train import train_model, eval_model
-# from tiny_imagenet import TinyImageNet
 
 
 def make_data_clean(args):
